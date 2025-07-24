@@ -1,4 +1,4 @@
-﻿namespace TodoList.Models
+﻿namespace Application.Models
 {
     public class ToDoListDTO
     {

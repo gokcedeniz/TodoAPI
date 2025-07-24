@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace TodoList.Migrations
+namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
     public partial class _2 : Migration
