@@ -12,6 +12,7 @@ namespace Domain.Entities.Base
         {
             IsDeleted = false;
             Id = Guid.NewGuid();
+            CreatedDateTime = DateTime.Now;
         }
         public Guid Id { get; set; }
         public bool IsDeleted { get; set; }

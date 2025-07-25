@@ -2,6 +2,8 @@
 using Application.Models;
 using Domain.Entities;
 using Domain.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Services
 {
@@ -83,6 +85,37 @@ namespace Application.Services
         public async Task DeleteAsync(Guid id)
         {
             await _toDoRepository.DeleteAsync(id);
+        }
+
+        public async Task<ToDoDetailDTO> UpdateTodoAsync(Guid todoId, ToDoupdateDTO todoDTO)
+        {
+            if (todoId != todoDTO.Id)
+                throw new ArgumentException("Gönderilen ID'ler uyuşmuyor");
+
+            if (todoId == null)
+                throw new KeyNotFoundException("Todo bulunamadı");
+
+            var todo = await _toDoRepository.GetByIdAsync(todoId);
+            todo.Description = todoDTO.Description;
+            todo.Title = todoDTO.Title;
+            todo.IsCompleted = todoDTO.IsCompleted;
+            todo.Priority = todoDTO.Priority;
+            //try
+            //{
+            //    await _toDoRepository.UpdateAsync(todo);
+            //}
+            //catch (DbUpdateConcurrencyException)
+            //{
+            //    return BadRequest();
+            //}
+            var newMapped = new ToDoDetailDTO();
+            newMapped.Description = todo.Description;
+            newMapped.Id = todo.Id;
+            newMapped.Priority = todo.Priority;
+            newMapped.IsCompleted = todo.IsCompleted;
+            newMapped.Title = todo.Title;
+            await _toDoRepository.UpdateAsync(todo);
+            return newMapped;
         }
     }
 }

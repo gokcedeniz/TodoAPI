@@ -1,7 +1,9 @@
-using TodoList.DataAccess;
-using Microsoft.EntityFrameworkCore;
-using System;
+using Application.Interfaces;
+using Application.Services;
+using Domain.Interfaces;
 using Infrastructure.Context;
+using Infrastructure.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace TodoList
 {
@@ -16,6 +18,11 @@ namespace TodoList
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<AppDbContext>(options =>
                 options.UseNpgsql(connectionString));  //varsayýlan olarak scoped kullanýlýr.
+
+            //Dependecy injection kullanarak interface ve sýnýflarý baðlýyorum 
+            builder.Services.AddScoped<IToDoRepository, ToDoRepository>();
+
+            builder.Services.AddScoped<IToDoService, ToDoService>();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

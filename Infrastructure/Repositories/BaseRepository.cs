@@ -15,9 +15,9 @@ namespace Infrastructure.Repositories
             _context = context;
             _dbSet = _context.Set<T>();
         }
-
-        public async Task<List<T>> GetAllAsync() => await _dbSet.ToListAsync();
-        public async Task<T> GetByIdAsync(Guid id) => await _dbSet.FindAsync(id);
+        private IQueryable<T> List => _dbSet.Where(x => x.IsDeleted == false);
+        public async Task<List<T>> GetAllAsync() => await List.ToListAsync();
+        public async Task<T> GetByIdAsync(Guid id) => await List.FirstOrDefaultAsync(x => x.Id == id);
         public async Task AddAsync(T item)
         {
             _dbSet.Add(item);
@@ -30,7 +30,7 @@ namespace Infrastructure.Repositories
         }
         public async Task DeleteAsync(Guid id)
         {
-            var item = await _dbSet.FindAsync(id);
+            var item = await GetByIdAsync(id);
             if (item != null)
             {
                 _dbSet.Remove(item);
