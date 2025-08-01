@@ -65,7 +65,7 @@ namespace TodoList.Controllers
             //newMapped.IsCompleted = todo.IsCompleted;
             //newMapped.Title = todo.Title;
             //return Ok(newMapped);
-
+            await _toDoService.UpdateTodoAsync(todoId, todoDTO);
 
             return Ok(todoDTO);
         }
