@@ -2,14 +2,12 @@
 using Domain.Interfaces;
 using Infrastructure.Context;
 
-
 namespace Infrastructure.Repositories
 {
-    public class ToDoRepository : BaseRepository<TToDo>, IToDoRepository 
+    public class NoteRepository : BaseRepository<TNote>, INoteRepository
     {
-        public ToDoRepository(AppDbContext context) : base(context)
+        public NoteRepository(AppDbContext context) : base(context)
         {
-
         }
     }
 }

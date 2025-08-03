@@ -11,5 +11,7 @@ namespace Infrastructure.Context
         }
 
         public DbSet<TToDo> Todos { get; set; }
+        public DbSet<TNote> Notes { get; set; }
+
     }
 }

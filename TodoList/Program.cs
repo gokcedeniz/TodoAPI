@@ -23,6 +23,9 @@ namespace TodoList
             builder.Services.AddScoped<IToDoRepository, ToDoRepository>();
 
             builder.Services.AddScoped<IToDoService, ToDoService>();
+            builder.Services.AddScoped<INoteRepository, NoteRepository>();
+            builder.Services.AddScoped<INoteService, NoteService>();
+
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
